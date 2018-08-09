@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
       end
 
       # Config applied for all node types
-      node_idx = "#{node}-local"
+      node_idx = "#{node}-local-fix"
       config.ssh.username = "vagrant"
       config.vm.provision "file", source: "./keys/public", destination: "/tmp/authorized_keys"
       config.vm.provision "file", source: "./keys/private", destination: "/tmp/private"
