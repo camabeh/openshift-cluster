@@ -1,0 +1,59 @@
+---
+all:
+  children:
+    OSEv3:
+      vars:
+        openshift_deployment_type: origin
+        loglevel: 8
+        openshift_version: "3.10"
+        openshift_master_cluster_public_hostname: master.192.168.100.10.nip.io
+        openshift_master_cluster_hostname: master.192.168.100.10.nip.io
+        openshift_master_default_subdomain: osc.192.168.100.10.nip.io
+        openshift_enable_service_catalog: false
+        openshift_master_identity_providers:
+        - name: htpasswd_auth
+          challenge: true
+          login: true
+          file: /etc/origin/master/htpasswd
+          kind: HTPasswdPasswordIdentityProvider
+        openshift_disable_check: memory_availability,docker_image_availability
+        openshift_web_console_nodeselector:
+          region: infra
+      children:
+        masters:
+          hosts:
+            master.192.168.100.10.nip.io:
+              openshift_public_ip: 192.168.100.10
+              openshift_ip: 192.168.100.10
+              openshift_public_hostname: master.192.168.100.10.nip.io
+              openshift_hostname: master.192.168.100.10.nip.io
+        etcd:
+          hosts:
+            master.192.168.100.10.nip.io:
+              openshift_public_ip: 192.168.100.10
+              openshift_ip: 192.168.100.10
+              openshift_public_hostname: master.192.168.100.10.nip.io
+              openshift_hostname: master.192.168.100.10.nip.io
+        nodes:
+          hosts:
+            master.192.168.100.10.nip.io:
+              openshift_node_labels:
+                region: infra
+              openshift_node_group_name: node-config-master-infra
+              openshift_schedulable: true
+              openshift_ip: 192.168.100.10
+              openshift_hostname: master.192.168.100.10.nip.io
+              openshift_public_ip: 192.168.100.10
+              openshift_public_hostname: master.192.168.100.10.nip.io
+            node1.192.168.100.20.nip.io:
+              openshift_node_group_name: node-config-compute
+              openshift_ip: 192.168.100.20
+              openshift_hostname: node1.192.168.100.20.nip.io
+              openshift_public_ip: 192.168.100.20
+              openshift_public_hostname: node1.192.168.100.20.nip.io
+            node2.192.168.100.21.nip.io:
+              openshift_node_group_name: node-config-compute
+              openshift_ip: 192.168.100.21
+              openshift_hostname: node2.192.168.100.21.nip.io
+              openshift_public_ip: 192.168.100.21
+              openshift_public_hostname: node2.192.168.100.21.nip.io
