@@ -17,8 +17,6 @@ all:
           file: /etc/origin/master/htpasswd
           kind: HTPasswdPasswordIdentityProvider
         openshift_disable_check: memory_availability,docker_image_availability
-        openshift_web_console_nodeselector:
-          region: infra
       children:
         masters:
           hosts:
@@ -37,8 +35,6 @@ all:
         nodes:
           hosts:
             master.192.168.100.10.nip.io:
-              openshift_node_labels:
-                region: infra
               openshift_node_group_name: node-config-master-infra
               openshift_schedulable: true
               openshift_ip: 192.168.100.10

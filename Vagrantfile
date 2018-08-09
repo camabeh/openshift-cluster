@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 
   # Defaults (VirtualBox)
   config.vm.box = "centos/7"
-  config.vm.synced_folder ".", "/vagrant"
+  config.vm.synced_folder '.', '/vagrant', disabled: true
 
   nodes.each do |node_type, (count, ip_end, cpu_count, memory, ext_storage_size)|
     count.times do |idx|
