@@ -1,3 +1,8 @@
+enable_proxy = true
+http_proxy = "..."
+https_proxy = "..."
+no_proxy = "localhost,127.0.0.1,10.1.0.0/16,172.30.0.0/16,.nip.io,docker-registry.default.svc.cluster.local,docker-registry.default.svc"
+
 nodes = {
     #             Count, 192.168.100.X, CPU count, Memory, Ext storage size
     'master' => [1, 10, 2, 8192],
@@ -5,6 +10,15 @@ nodes = {
 }
 
 Vagrant.configure("2") do |config|
+
+  if enable_proxy
+    unless Vagrant.has_plugin?("vagrant-proxyconf")
+      raise 'vagrant-proxyconf is not installed. Install with: vagrant plugin install vagrant-proxyconf'
+    end
+    config.proxy.http = http_proxy
+    config.proxy.https = https_proxy
+    config.proxy.no_proxy = no_proxy
+  end
 
   # Defaults (VirtualBox)
   config.vm.box = "centos/7"

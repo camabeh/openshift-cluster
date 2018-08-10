@@ -10,6 +10,10 @@ all:
         openshift_master_cluster_hostname: master.192.168.100.10.nip.io
         openshift_master_default_subdomain: osc.192.168.100.10.nip.io
         openshift_enable_service_catalog: false
+        openshift_http_proxy: ...
+        docker_http_proxy: ...
+        openshift_no_proxy: .cluster.local,localhost,127.0.0.1,10.1.0.0/16,172.30.0.0/16,.nip.io,docker-registry.default.svc.cluster.local,docker-registry.default.svc
+        docker_no_proxy: .cluster.local,localhost,127.0.0.1,10.1.0.0/16,172.30.0.0/16,.nip.io,docker-registry.default.svc.cluster.local,docker-registry.default.svc
         openshift_master_identity_providers:
         - name: htpasswd_auth
           challenge: true
@@ -23,14 +27,12 @@ all:
             master.192.168.100.10.nip.io:
               openshift_public_ip: 192.168.100.10
               openshift_ip: 192.168.100.10
-              openshift_public_hostname: master.192.168.100.10.nip.io
               openshift_hostname: master.192.168.100.10.nip.io
         etcd:
           hosts:
             master.192.168.100.10.nip.io:
               openshift_public_ip: 192.168.100.10
               openshift_ip: 192.168.100.10
-              openshift_public_hostname: master.192.168.100.10.nip.io
               openshift_hostname: master.192.168.100.10.nip.io
         nodes:
           hosts:
@@ -39,17 +41,11 @@ all:
               openshift_schedulable: true
               openshift_ip: 192.168.100.10
               openshift_hostname: master.192.168.100.10.nip.io
-              openshift_public_ip: 192.168.100.10
-              openshift_public_hostname: master.192.168.100.10.nip.io
             node1.192.168.100.20.nip.io:
               openshift_node_group_name: node-config-compute
               openshift_ip: 192.168.100.20
               openshift_hostname: node1.192.168.100.20.nip.io
-              openshift_public_ip: 192.168.100.20
-              openshift_public_hostname: node1.192.168.100.20.nip.io
             node2.192.168.100.21.nip.io:
               openshift_node_group_name: node-config-compute
               openshift_ip: 192.168.100.21
               openshift_hostname: node2.192.168.100.21.nip.io
-              openshift_public_ip: 192.168.100.21
-              openshift_public_hostname: node2.192.168.100.21.nip.io
